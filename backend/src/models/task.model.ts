@@ -72,4 +72,4 @@ const taskSchema = new Schema<ITask>(
   },
 );
 taskSchema.index({ location: "2dsphere" });
-export const Task = mongoose.model('Task', taskSchema)
+export const Task = mongoose.model<ITask>('Task', taskSchema)

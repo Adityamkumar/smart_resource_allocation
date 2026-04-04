@@ -31,6 +31,14 @@ app.use("/api/user", userRouter);
 import taskRouter from "./routes/task.route.js";
 app.use("/api/task", taskRouter);
 
+//assign volunteer
+import assignVolunteerRouter from './routes/assignTask.route.js'
+app.use('/api/assignVolunteer', assignVolunteerRouter)
+
+//ai Route
+import aiRoutes from "./routes/ai.route.js";
+app.use("/api/assign/ai", aiRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("Hello Welcome to my App");
