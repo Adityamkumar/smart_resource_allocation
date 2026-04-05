@@ -26,6 +26,7 @@ export const assignVolunteer = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Volunteer already assigned");
   }
 
+
   const assignment = await Assignment.create({
     task: taskId,
     volunteer: volunteerId,
