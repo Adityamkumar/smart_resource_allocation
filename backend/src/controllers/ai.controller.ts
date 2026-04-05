@@ -5,6 +5,7 @@ import { getAIScore } from "../services/ai.service.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { calculateDistance } from "../utils/calculateDistance.js";
 
 export const autoAssignVolunteers = asyncHandler(async (req, res) => {
   const { taskId } = req.body;
@@ -18,21 +19,35 @@ export const autoAssignVolunteers = asyncHandler(async (req, res) => {
     role: "volunteer",
     availability: true,
     skills: { $in: task.requiredSkills },
-  }).limit(task.volunteersNeeded)
+    location: {
+      $near: {
+        $geometry: {
+          type: "Point",
+          coordinates: task.location.coordinates,
+        },
+        $maxDistance: 5000, // 5km radius
+      },
+    },
+  }).limit(5);
 
   const selected = volunteers.slice(0, task.volunteersNeeded);
 
   const assignments: IAssignment[] = [];
 
   for (const volunteer of selected) {
-    const aiResult = await getAIScore(task, volunteer);
+    const distance = calculateDistance(
+      task.location.coordinates,
+      volunteer.location.coordinates,
+    );
+
+    const aiResult = await getAIScore(task, volunteer, distance);
 
     const existing = await Assignment.findOne({
       task: task._id,
       volunteer: volunteer._id,
     });
 
-    if(existing) continue
+    if (existing) continue;
 
     const assignment = await Assignment.create({
       task: task._id,

@@ -4,28 +4,36 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY!,
 });
 
-export const getAIScore = async (task: any, volunteer: any) => {
+export const getAIScore = async (
+  task: any,
+  volunteer: any,
+  distance: number,
+) => {
   try {
     const prompt = `
-You are an AI system that assigns volunteers to tasks.
+You are an AI system assigning volunteers.
 
 Task:
 - Title: ${task.title}
-- Required Skills: ${task.requiredSkills.join(", ")}
+- Skills Required: ${task.requiredSkills.join(", ")}
 
 Volunteer:
 - Skills: ${volunteer.skills.join(", ")}
 - Available: ${volunteer.availability}
+- Distance: ${distance.toFixed(2)} km
 
-Give output in STRICT JSON format:
+IMPORTANT:
+Closer volunteers should be preferred.
+
+Return JSON:
 {
-  "score": number (0 to 1),
-  "reason": "short explanation within one or two line, while explaning the actual reason."
+  "score": number (1-10),
+  "reason": "short explanation within one or two lines, including distance"
 }
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash", 
+      model: "gemini-2.5-flash",
       contents: prompt,
     });
 
@@ -38,7 +46,7 @@ Give output in STRICT JSON format:
     console.log("AI Error:", error);
 
     return {
-      score: 0.5,
+      score: 1,
       reason: "Fallback: basic matching",
     };
   }
