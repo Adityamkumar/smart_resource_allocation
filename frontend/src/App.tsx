@@ -26,6 +26,23 @@ const HelpRequestPage = lazy(() => import('./pages/HelpRequestPage'));
 const AdminHelpRequestsPage = lazy(() => import('./pages/AdminHelpRequestsPage'));
 const MainLayout = lazy(() => import('./components/MainLayout'));
 
+const ProtectedRoute = ({ children, adminOnly = false, volunteerOnly = false }: { children: React.ReactNode; adminOnly?: boolean; volunteerOnly?: boolean }) => {
+  const user = useAuthStore((state) => state.user);
+  if (!user) return <Navigate to="/login" replace />;
+  
+  if (adminOnly && user.role !== 'admin') {
+    toast.error("You don't have permission to access the administration zone");
+    return <Navigate to="/dashboard" replace />;
+  }
+  
+  if (volunteerOnly && user.role === 'admin') {
+    toast.error("This section is only for volunteers");
+    return <Navigate to="/dashboard" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
 const App: React.FC = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const user = useAuthStore((state) => state.user);
@@ -37,22 +54,6 @@ const App: React.FC = () => {
       document.documentElement.classList.remove('dark');
     }
   }, [isDarkMode]);
-
-  const ProtectedRoute = ({ children, adminOnly = false, volunteerOnly = false }: { children: React.ReactNode; adminOnly?: boolean; volunteerOnly?: boolean }) => {
-    if (!user) return <Navigate to="/login" replace />;
-    
-    if (adminOnly && user.role !== 'admin') {
-      toast.error("You don't have permission to access the administration zone");
-      return <Navigate to="/dashboard" replace />;
-    }
-    
-    if (volunteerOnly && user.role === 'admin') {
-      toast.error("This section is only for volunteers");
-      return <Navigate to="/dashboard" replace />;
-    }
-    
-    return <>{children}</>;
-  };
 
   return (
     <QueryClientProvider client={queryClient}>
