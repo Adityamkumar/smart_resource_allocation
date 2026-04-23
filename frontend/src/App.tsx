@@ -104,7 +104,7 @@ const App: React.FC = () => {
       <BrowserRouter>
         <Suspense fallback={<div className="h-screen w-screen flex items-center justify-center">Loading...</div>}>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={!user ? <LandingPage /> : <Navigate to="/dashboard" replace />} />
             <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/dashboard" replace />} />
             <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to="/dashboard" replace />} />
             
