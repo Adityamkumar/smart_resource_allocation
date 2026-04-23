@@ -242,7 +242,7 @@ export const rateVolunteer = asyncHandler(async (req, res) => {
 });
 
 export const getVolunteerReviews = asyncHandler(async (req, res) => {
-  const { volunteerId } = req.params;
+  const { volunteerId } = req.params as { volunteerId: string };
 
   if (!volunteerId) {
     throw new ApiError(400, "Volunteer ID is required");
@@ -254,7 +254,7 @@ export const getVolunteerReviews = asyncHandler(async (req, res) => {
 });
 
 export const deleteRating = asyncHandler(async (req, res) => {
-  const { ratingId } = req.params;
+  const { ratingId } = req.params as { ratingId: string };
 
   if (!mongoose.Types.ObjectId.isValid(ratingId)) {
     throw new ApiError(400, "Invalid Rating ID format");
