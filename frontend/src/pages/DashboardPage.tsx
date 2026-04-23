@@ -4,8 +4,6 @@ import api from '../services/api';
 import toast from 'react-hot-toast';
 import { 
   MapPin, 
-  Calendar, 
-  Heart, 
   Activity,
   Shield,
   Clock,

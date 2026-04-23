@@ -4,7 +4,7 @@ import api from '../services/api';
 import type { HelpRequest } from '../types';
 import { 
   MessageSquare, Loader2, Phone, MapPin, 
-  Users, AlertTriangle, CheckCircle, Play, 
+  Users, CheckCircle, Play, 
   Trash2, Search, ChevronRight, Activity, Zap, Sparkles
 } from 'lucide-react';
 import { clsx } from 'clsx';

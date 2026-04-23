@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
-import { Users, Search, MapPin, Shield, Star, Loader2, Mail, Clock } from 'lucide-react';
+import { Users, Search, MapPin, Star, Loader2, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { clsx } from 'clsx';
 import toast from 'react-hot-toast';

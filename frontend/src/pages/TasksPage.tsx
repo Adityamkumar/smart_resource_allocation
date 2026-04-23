@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../services/api';
 import type { Task, TaskPriority, TaskStatus, Assignment } from '../types';
 import TaskCard from '../components/TaskCard';
-import { Search, SlidersHorizontal, Plus, Loader2, X, MapPin, Shield, Info, User as UserIcon, CheckCircle, Clock, XCircle, Trash2, Users } from 'lucide-react';
+import { Search, Plus, Loader2, X, MapPin, Shield, Info, User as UserIcon, CheckCircle, XCircle, Trash2, Users } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuthStore } from '../store/useAuthStore';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const TasksPage: React.FC = () => {
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<TaskStatus | 'all'>('all');
-  const [priorityFilter, setPriorityFilter] = useState<TaskPriority | 'all'>('all');
+  const [priorityFilter] = useState<TaskPriority | 'all'>('all');
   const { user } = useAuthStore();
   const isAdmin = user?.role === 'admin';
   const queryClient = useQueryClient();

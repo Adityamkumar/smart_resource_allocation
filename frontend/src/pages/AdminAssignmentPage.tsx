@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 import type { Task, Assignment } from '../types';
-import { Shield, Loader2, Sparkles, AlertCircle, User as UserIcon, Check, ListChecks, Play, Trash2, XOctagon, MapPin, Zap, Star } from 'lucide-react';
+import { Shield, Loader2, Sparkles, AlertCircle, Play, Trash2, MapPin, Zap, Star } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { clsx } from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -270,7 +270,7 @@ const AdminAssignmentPage: React.FC = () => {
   );
 };
 
-const RatingSection: React.FC<{ volunteerId: string, currentRating: number }> = ({ volunteerId, currentRating }) => {
+const RatingSection: React.FC<{ volunteerId: string }> = ({ volunteerId }) => {
   const [hover, setHover] = useState(0);
   const [rating, setRating] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -366,7 +366,7 @@ const AIResultCard: React.FC<{assignment: Assignment; onRevoke: (aid: string) =>
          </div>
       </div>
 
-      <RatingSection volunteerId={volunteer?._id} currentRating={volunteer?.rating || 0} />
+      <RatingSection volunteerId={volunteer?._id} />
 
       <div className="flex flex-wrap gap-1.5">
          {volunteer.skills?.map((s: string) => (
@@ -395,7 +395,7 @@ const AIResultCard: React.FC<{assignment: Assignment; onRevoke: (aid: string) =>
 
 const SuggestionCard: React.FC<{suggestion: any; index: number, taskId: string, onAssign: () => void}> = ({ suggestion, index, taskId, onAssign }) => {
   const volunteer = suggestion.volunteer;
-  const isTooFar = suggestion.isTooFar;
+  // Suggestion card logic
   const [loading, setLoading] = useState(false);
 
   const handleManualAssign = async () => {

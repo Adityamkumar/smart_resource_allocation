@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Shield, Users, Sparkles, Activity, ArrowRight, CheckCircle, Globe, Cpu, Moon, Sun } from 'lucide-react';
+import { Shield, Sparkles, Activity, ArrowRight, CheckCircle, Globe, Cpu, Moon, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useThemeStore } from '../store/useThemeStore';
 
@@ -18,7 +18,7 @@ const LandingPage: React.FC = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as any } }
   };
 
   return (
