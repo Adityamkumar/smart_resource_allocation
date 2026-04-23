@@ -41,9 +41,14 @@ const DashboardPage: React.FC = () => {
         
         if (!user?.address && user?.location?.coordinates) {
           const [lng, lat] = user.location.coordinates;
-          const reverseResponse = await api.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
-          if (reverseResponse.data.display_name) {
-             updateUser({ ...user!, address: reverseResponse.data.display_name });
+          try {
+            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+            const data = await res.json();
+            if (data.display_name) {
+              updateUser({ ...user!, address: data.display_name });
+            }
+          } catch (err) {
+            console.error('Reverse geocoding failed:', err);
           }
         }
       } catch (error) {
@@ -75,19 +80,19 @@ const DashboardPage: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col md:flex-row gap-6 items-start md:items-end justify-between border-b border-zinc-200 dark:border-white/5 pb-6"
       >
-         <div className="space-y-1.5">
-            <div className={clsx(
-              "inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-all",
-              isAdmin ? "bg-rose-500/10 border-rose-500/20 text-rose-600 dark:text-rose-400" : "bg-zinc-100 border-zinc-200 text-zinc-600 dark:bg-white/5 dark:border-white/10 dark:text-zinc-400"
-            )}>
-              <Shield size={10} className={isAdmin ? "text-rose-500" : "text-zinc-500"} />
-              {user.role === 'admin' ? 'Administrator' : 'Volunteer'}
-            </div>
-            <h1 className="text-4xl font-light tracking-tight text-zinc-900 dark:text-white leading-tight">
-               Welcome back, <span className="font-semibold text-black dark:text-zinc-100">{isAdmin ? 'Admin' : (user.name?.split(' ')[0] || 'Responder')}</span>.
-            </h1>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 font-light">Welcome to your dashboard. Here is what's happening.</p>
-         </div>
+          <div className="space-y-1.5 min-w-0">
+             <div className={clsx(
+               "inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border transition-all",
+               isAdmin ? "bg-rose-500/10 border-rose-500/20 text-rose-600 dark:text-rose-400" : "bg-zinc-100 border-zinc-200 text-zinc-600 dark:bg-white/5 dark:border-white/10 dark:text-zinc-400"
+             )}>
+               <Shield size={10} className={isAdmin ? "text-rose-500" : "text-zinc-500"} />
+               {user.role === 'admin' ? 'Admin' : 'Volunteer'}
+             </div>
+             <h1 className="text-2xl sm:text-4xl font-light tracking-tight text-zinc-900 dark:text-white leading-tight">
+                Welcome back, <span className="font-semibold text-black dark:text-zinc-100 truncate">{isAdmin ? 'Admin' : (user.name?.split(' ')[0] || 'Responder')}</span>.
+             </h1>
+             <p className="text-sm text-zinc-500 dark:text-zinc-400 font-light">Status overview and task summaries.</p>
+          </div>
 
          {!isAdmin && (
            <motion.div 
@@ -97,7 +102,7 @@ const DashboardPage: React.FC = () => {
            >
               <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 blur-2xl rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
               <div className="flex items-center justify-between relative z-10">
-                 <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Status</span>
+                 <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Status</span>
                  <div className="flex items-center gap-2">
                     <span className="text-[10px] font-medium text-zinc-500">{user.availability ? 'Active' : 'Offline'}</span>
                     <div className={clsx(
@@ -126,7 +131,7 @@ const DashboardPage: React.FC = () => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="lg:col-span-2 bg-white dark:bg-[#121212] rounded-2xl border border-zinc-200 dark:border-white/5 p-8 shadow-sm relative overflow-hidden"
+          className="lg:col-span-2 bg-white dark:bg-[#121212] rounded-2xl border border-zinc-200 dark:border-white/5 p-6 sm:p-8 shadow-sm relative overflow-hidden"
         >
           <div className="absolute bottom-0 right-0 w-64 h-64 bg-zinc-500/5 blur-3xl rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none" />
           
@@ -147,7 +152,7 @@ const DashboardPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 relative z-10">
              <div className="space-y-4">
-                <p className="text-[10px] uppercase tracking-widest font-bold text-zinc-400">Skills</p>
+                <p className="text-[10px] uppercase tracking-wider font-bold text-zinc-400">Skills</p>
                 <div className="flex flex-wrap gap-2">
                    {user.skills && user.skills.length > 0 ? user.skills.map(skill => (
                      <span key={skill} className="px-2.5 py-1 bg-zinc-50 dark:bg-white/5 text-zinc-700 dark:text-zinc-200 text-[10px] font-semibold rounded-lg border border-zinc-200 dark:border-white/10 transition-colors hover:border-zinc-300 dark:hover:border-white/30">
@@ -160,7 +165,7 @@ const DashboardPage: React.FC = () => {
              </div>
 
              <div className="space-y-4">
-                <p className="text-[10px] uppercase tracking-widest font-bold text-zinc-400">Location</p>
+                <p className="text-[10px] uppercase tracking-wider font-bold text-zinc-400">Location</p>
                 <div className="flex items-start gap-3">
                    <div className="mt-0.5 text-zinc-400">
                       <MapPin size={16} />
@@ -172,9 +177,9 @@ const DashboardPage: React.FC = () => {
              </div>
 
              <div className="space-y-4">
-                <p className="text-[10px] uppercase tracking-widest font-bold text-zinc-400">Average Rating</p>
+                <p className="text-[10px] uppercase tracking-wider font-bold text-zinc-400">Total Rating</p>
                 <div className="flex flex-col gap-1.5">
-                   <div className="flex items-center gap-0.5">
+                   <div className="flex items-center gap-1">
                       {[1, 2, 3, 4, 5].map((star) => {
                         const rating = user.rating || 0;
                         const active = rating >= star;
@@ -183,7 +188,7 @@ const DashboardPage: React.FC = () => {
                         return (
                           <div key={star} className="relative">
                              <Star 
-                                size={16} 
+                                size={14} sm:size={16} 
                                 className={clsx(
                                   "transition-all duration-300",
                                   active ? "text-amber-500 fill-amber-500" : "text-zinc-100 dark:text-zinc-800"
@@ -191,23 +196,23 @@ const DashboardPage: React.FC = () => {
                              />
                              {partial && (
                                <div className="absolute top-0 left-0 overflow-hidden pointer-events-none" style={{ width: `${(rating % 1) * 100}%` }}>
-                                  <Star size={16} className="text-amber-500 fill-amber-500" />
+                                  <Star size={14} sm:size={16} className="text-amber-500 fill-amber-500" />
                                </div>
                              )}
                           </div>
                         );
                       })}
-                      <span className="ml-3 text-lg font-black text-zinc-900 dark:text-white leading-none">{(user.rating || 0).toFixed(1)}</span>
+                      <span className="ml-2 text-base sm:text-lg font-bold text-zinc-900 dark:text-white leading-none">{(user.rating || 0).toFixed(1)}</span>
                    </div>
-                   <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Based on customer feedback</p>
+                   <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">Customer Feedback</p>
                 </div>
              </div>
-
+ 
              <div className="space-y-4">
-                <p className="text-[10px] uppercase tracking-widest font-bold text-zinc-400">Member Since</p>
+                <p className="text-[10px] uppercase tracking-wider font-bold text-zinc-400">Join Date</p>
                 <div className="flex items-center gap-2 text-sm font-light text-zinc-600 dark:text-zinc-300">
                    <Clock size={16} className="text-zinc-400" />
-                   {new Date(user.createdAt || Date.now()).toLocaleDateString('en-US', { month: 'long', year: 'numeric'})}
+                   {new Date(user.createdAt || Date.now()).toLocaleDateString('en-US', { month: 'short', year: 'numeric'})}
                 </div>
              </div>
           </div>
@@ -308,7 +313,7 @@ const StatCard: React.FC<{ label: string; value: any; icon: React.ReactNode, hig
        )}>{icon}</div>
     </div>
     <p className={clsx(
-      "text-5xl font-light tracking-tight leading-none relative z-10",
+      "text-4xl sm:text-5xl font-light tracking-tight leading-none relative z-10",
       highlight === 'rose' ? "text-rose-600 dark:text-rose-400" : highlight === 'emerald' ? "text-emerald-600 dark:text-emerald-400" : "text-black dark:text-white"
     )}>
       {value ?? 0}

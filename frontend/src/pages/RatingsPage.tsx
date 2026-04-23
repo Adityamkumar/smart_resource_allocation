@@ -58,10 +58,10 @@ const RatingsPage: React.FC = () => {
           </p>
         </div>
         <div className="flex flex-col items-end">
-           <span className="text-3xl font-black text-zinc-900 dark:text-white leading-none">
+           <span className="text-3xl font-bold text-zinc-900 dark:text-white leading-none">
              {loading ? '...' : reviews.length}
            </span>
-           <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-1">Total Reviews</span>
+           <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mt-1">Total Reviews</span>
         </div>
       </div>
 

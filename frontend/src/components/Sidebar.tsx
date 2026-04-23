@@ -44,7 +44,7 @@ const Sidebar: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, o
         <div className="p-6 flex items-center justify-between lg:hidden border-b border-black/5 dark:border-white/5">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-zinc-900 dark:bg-white rounded-lg flex items-center justify-center">
-              <span className="text-white dark:text-black font-black text-lg">V</span>
+              <span className="text-white dark:text-black font-bold text-lg">V</span>
             </div>
             <span className="text-xl font-bold text-zinc-900 dark:text-zinc-100">VolunSync</span>
           </div>
@@ -82,7 +82,7 @@ const Sidebar: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, o
                  {isAdmin ? (
                    <ShieldCheck size={20} className="text-rose-500" />
                  ) : (
-                   <div className="w-full h-full flex items-center justify-center text-xs font-black text-zinc-400">
+                   <div className="w-full h-full flex items-center justify-center text-xs font-bold text-zinc-400">
                      {user?.name?.[0] || 'V'}
                    </div>
                  )}
@@ -93,7 +93,7 @@ const Sidebar: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, o
                  </p>
                  <div className="flex items-center gap-1.5">
                     <div className={cn("w-1 h-1 rounded-full", isAdmin ? "bg-rose-500" : "bg-emerald-500")} />
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">
                       {user?.role}
                     </p>
                  </div>

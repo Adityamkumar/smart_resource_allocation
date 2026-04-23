@@ -34,7 +34,7 @@ const Navbar: React.FC<{onOpenSidebar: () => void}> = ({ onOpenSidebar }) => {
         </button>
         <div className="flex items-center gap-3 group cursor-default">
           <div className="w-8 h-8 bg-zinc-900 dark:bg-white rounded-lg flex items-center justify-center shadow-sm transition-transform">
-            <span className="text-white dark:text-black font-black text-lg leading-none">V</span>
+            <span className="text-white dark:text-black font-bold text-lg leading-none">V</span>
           </div>
           <span className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 hidden sm:block">VolunSync</span>
         </div>
@@ -56,7 +56,7 @@ const Navbar: React.FC<{onOpenSidebar: () => void}> = ({ onOpenSidebar }) => {
         <div className="flex items-center gap-4">
           <div className="hidden sm:block text-right">
             <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 leading-none mb-1 mt-1">{user?.name}</p>
-            <p className="text-[10px] font-medium text-zinc-500 dark:text-zinc-500 uppercase tracking-widest">{user?.role}</p>
+            <p className="text-[10px] font-medium text-zinc-500 dark:text-zinc-500 uppercase tracking-wider">{user?.role}</p>
           </div>
           <button 
              onClick={handleLogout}

@@ -88,7 +88,7 @@ const App: React.FC = () => {
     return (
       <div className="h-screen w-screen bg-zinc-50 dark:bg-[#0a0a0a] flex flex-col items-center justify-center gap-4">
         <div className="w-12 h-12 border-4 border-zinc-200 dark:border-white/5 border-t-zinc-900 dark:border-t-white rounded-full animate-spin" />
-        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 animate-pulse">Syncing Tactical Status...</p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 animate-pulse">Syncing Tactical Status...</p>
       </div>
     );
   }

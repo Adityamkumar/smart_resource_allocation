@@ -49,7 +49,7 @@ const LoginPage: React.FC = () => {
         <form onSubmit={handleLogin} className="px-8 pb-10 space-y-5">
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-widest pl-1">Email Address</label>
+              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider pl-1">Email Address</label>
               <div className="relative group">
                 <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-zinc-900 dark:group-focus-within:text-white transition-colors">
                   <Mail size={16} />
@@ -66,7 +66,7 @@ const LoginPage: React.FC = () => {
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-widest pl-1">Password</label>
+              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider pl-1">Password</label>
               <div className="relative group">
                 <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-zinc-900 dark:group-focus-within:text-white transition-colors">
                   <Lock size={16} />

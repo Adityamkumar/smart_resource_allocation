@@ -85,23 +85,23 @@ const AdminHelpRequestsPage: React.FC = () => {
         <div className="space-y-2">
            <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-1">
               <Activity size={10} className="text-zinc-400" />
-              New Help Requests
+              Intelligence Feed
            </div>
-           <h1 className="text-4xl font-light tracking-tight text-zinc-900 dark:text-white leading-tight">
+           <h1 className="text-2xl sm:text-4xl font-light tracking-tight text-zinc-900 dark:text-white leading-tight">
               Community <span className="font-semibold">Requests</span>
            </h1>
            <p className="text-zinc-500 dark:text-zinc-400 text-sm font-light">
-              See what people in the community are asking for and help them.
+              Review and manage incoming community signals.
            </p>
         </div>
 
-        <div className="flex items-center gap-1.5 bg-zinc-100 dark:bg-[#121212] p-1.5 rounded-xl border border-zinc-200 dark:border-white/10">
+        <div className="flex items-center gap-1.5 bg-zinc-100 dark:bg-[#121212] p-1.5 rounded-xl border border-zinc-200 dark:border-white/10 overflow-x-auto no-scrollbar whitespace-nowrap">
            {['all', 'pending', 'converted', 'completed'].map(opt => (
               <button
                 key={opt}
                 onClick={() => setStatusFilter(opt)}
                 className={clsx(
-                   "px-4 py-2 text-[10px] font-black uppercase tracking-[0.1em] rounded-lg transition-all active:scale-[0.98]",
+                   "px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] rounded-lg transition-all active:scale-[0.98] min-w-[100px]",
                    statusFilter === opt ? "bg-white dark:bg-white/10 text-zinc-950 dark:text-white shadow-sm ring-1 ring-black/5" : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300"
                 )}
               >
@@ -147,37 +147,37 @@ const AdminHelpRequestsPage: React.FC = () => {
                  exit={{ opacity: 0, scale: 0.95 }}
                  key={req._id} 
                  className={clsx(
-                   "bg-white dark:bg-[#121212] rounded-2xl p-6 md:p-8 border border-zinc-200 dark:border-white/5 shadow-sm hover:shadow-md transition-all relative overflow-hidden group flex flex-col gap-6",
+                   "bg-white dark:bg-[#121212] rounded-2xl p-5 sm:p-8 border border-zinc-200 dark:border-white/5 shadow-sm hover:shadow-md transition-all relative overflow-hidden group flex flex-col gap-5 sm:gap-6",
                    req.status === 'converted' && "opacity-80 grayscale-[0.5]"
                  )}
                >
-                 <div className={clsx(
-                   "absolute top-0 right-0 px-4 py-1 text-[8px] font-black uppercase tracking-[0.2em] rounded-bl-xl flex items-center gap-1.5",
-                   req.priority === 'emergency' ? "bg-rose-500 text-white animate-pulse" :
-                   req.priority === 'high' ? "bg-rose-500/10 text-rose-500" :
-                   req.priority === 'medium' ? "bg-amber-500/10 text-amber-500" : "bg-emerald-500/10 text-emerald-500"
-                 )}>
-                    {req.priority === 'emergency' && <Zap size={10} fill="currentColor" />}
-                    {req.priority} Priority
-                 </div>
+                  <div className={clsx(
+                    "absolute top-0 right-0 px-3 sm:px-4 py-1 text-[8px] font-bold uppercase tracking-[0.2em] rounded-bl-xl flex items-center gap-1.5",
+                    req.priority === 'emergency' ? "bg-rose-500 text-white animate-pulse" :
+                    req.priority === 'high' ? "bg-rose-500/10 text-rose-500" :
+                    req.priority === 'medium' ? "bg-amber-500/10 text-amber-500" : "bg-emerald-500/10 text-emerald-500"
+                  )}>
+                     {req.priority === 'emergency' && <Zap size={10} fill="currentColor" />}
+                     {req.priority}
+                  </div>
 
                  <div className="flex flex-col md:flex-row justify-between items-start gap-4 w-full pt-2">
                     <div className="flex items-center gap-5">
                        <div className="w-12 h-12 bg-zinc-50 dark:bg-white/5 border border-zinc-100 dark:border-white/10 rounded-2xl flex items-center justify-center text-zinc-400 group-hover:bg-zinc-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-all">
                           <MessageSquare size={22} />
                        </div>
-                       <div className="flex flex-col space-y-1.5">
-                          <h3 className="text-xl font-semibold text-zinc-900 dark:text-white leading-none flex items-center gap-3">
-                            {req.name}
+                        <div className="flex flex-col space-y-1.5 min-w-0">
+                           <h3 className="text-lg sm:text-xl font-semibold text-zinc-900 dark:text-white leading-none flex items-center gap-2 sm:gap-3 flex-wrap">
+                             <span className="truncate max-w-[150px] sm:max-w-none">{req.name}</span>
                              <span className={clsx(
-                                "px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest leading-none border",
+                                "px-2 py-0.5 rounded-lg text-[8px] sm:text-[9px] font-bold uppercase tracking-wider leading-none border",
                                  req.status === 'pending' ? "bg-white text-zinc-600 border-zinc-200 dark:bg-white/5 dark:text-zinc-400 dark:border-white/10" :
                                  req.status === 'converted' ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 dark:text-emerald-400" :
                                  "bg-zinc-100 text-zinc-400 border-transparent dark:bg-black/20"
                              )}>
                                 {req.status === 'pending' ? 'New' : req.status === 'converted' ? 'Created' : req.status}
                              </span>
-                          </h3>
+                           </h3>
                           <div className="flex items-center gap-5 pt-0.5">
                              <div className="flex items-center gap-2 text-zinc-500 dark:text-zinc-400 font-light text-[11px]">
                                 <Phone size={13} className="text-zinc-400" />
@@ -190,13 +190,12 @@ const AdminHelpRequestsPage: React.FC = () => {
                           </div>
                        </div>
                     </div>
-                    
-                    <div className="flex items-center gap-3 w-full md:w-auto">
-                       <div className="flex bg-zinc-50 dark:bg-white/5 rounded-xl border border-zinc-200 dark:border-white/10 px-4 py-2 items-center gap-2 h-fit">
-                          <Users size={14} className="text-zinc-400" />
-                          <span className="text-[10px] uppercase font-black tracking-widest text-zinc-600 dark:text-zinc-400">{req.volunteersNeeded} Volunteers Needed</span>
-                       </div>
-                    </div>
+                                        <div className="flex items-center gap-2 sm:gap-3 w-full md:w-auto mt-2 md:mt-0">
+                        <div className="flex bg-zinc-50 dark:bg-white/5 rounded-xl border border-zinc-200 dark:border-white/10 px-3 sm:px-4 py-2 items-center gap-2 h-fit">
+                           <Users size={14} className="text-zinc-400" />
+                           <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider text-zinc-600 dark:text-zinc-400">{req.volunteersNeeded} Needed</span>
+                        </div>
+                     </div>
                  </div>
 
                  <div className="bg-zinc-50/50 dark:bg-white/[0.02] p-6 rounded-2xl border border-zinc-100 dark:border-white/5 relative group-hover:bg-white dark:group-hover:bg-black/20 transition-all">
@@ -208,14 +207,14 @@ const AdminHelpRequestsPage: React.FC = () => {
                  <div className="flex items-center justify-between border-t border-zinc-100 dark:border-white/5 pt-6">
                     <div className="flex items-center gap-3">
                        {req.status === 'pending' && (
-                          <div className="flex flex-wrap gap-3">
+                          <div className="flex flex-wrap gap-2 sm:gap-3">
                             <button 
                               onClick={() => convertToTaskMutation.mutate(req)}
                               disabled={convertToTaskMutation.isPending}
-                              className="px-6 py-2.5 bg-zinc-900 dark:bg-white dark:text-black dark:hover:bg-zinc-100 text-white text-[10px] font-black uppercase tracking-widest rounded-xl transition-all flex items-center gap-2 active:scale-[0.97] shadow-sm"
+                              className="px-4 sm:px-6 py-2.5 bg-zinc-900 dark:bg-white dark:text-black dark:hover:bg-zinc-100 text-white text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all flex items-center gap-2 active:scale-[0.97] shadow-sm"
                             >
-                               {convertToTaskMutation.isPending ? <Loader2 className="animate-spin" size={14} /> : <Play size={12} fill="currentColor" />}
-                               Accept & Create
+                               {convertToTaskMutation.isPending ? <Loader2 className="animate-spin" size={14} /> : <Play size={10} sm:size={12} fill="currentColor" />}
+                               Accept
                             </button>
                             <button 
                               onClick={async () => {
@@ -236,14 +235,14 @@ const AdminHelpRequestsPage: React.FC = () => {
                                   toast.error("AI Analysis failed: " + err.message);
                                 }
                               }}
-                              className="px-6 py-2.5 bg-rose-500 text-white hover:bg-rose-600 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all flex items-center gap-2 active:scale-[0.97] shadow shadow-rose-500/20"
+                              className="px-4 sm:px-6 py-2.5 bg-rose-500 text-white hover:bg-rose-600 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all flex items-center gap-2 active:scale-[0.97] shadow shadow-rose-500/20"
                             >
-                               <Sparkles size={14} fill="currentColor" />
-                               Auto-Create (AI)
+                               <Sparkles size={12} sm:size={14} fill="currentColor" />
+                               AI Build
                             </button>
                             <button 
                                onClick={() => updateStatusMutation.mutate({ id: req._id, status: 'rejected' })}
-                               className="px-6 py-2.5 bg-zinc-100 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all active:scale-[0.97] border border-transparent hover:border-rose-200 dark:hover:border-rose-500/20"
+                               className="px-4 sm:px-6 py-2.5 bg-zinc-100 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all active:scale-[0.97] border border-transparent hover:border-rose-200 dark:hover:border-rose-500/20"
                             >
                                Decline
                             </button>
@@ -251,27 +250,21 @@ const AdminHelpRequestsPage: React.FC = () => {
                        )}
                        
                        {req.status === 'converted' && (
-                         <>
-                          <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest mr-4">
+                         <div className="flex flex-wrap gap-2 sm:gap-3 items-center">
+                          <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider mr-2 sm:mr-4">
                              <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                             Operational Directive
+                             Action Active
                           </div>
                           {req.linkedTask && (
-                            <a href={`/app/tasks`} className="px-5 py-2.5 bg-zinc-100 dark:bg-white/5 text-zinc-900 dark:text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-zinc-200 dark:hover:bg-white/10 transition-all flex items-center gap-2 border border-zinc-200 dark:border-white/10">
-                              Navigate to Task <ChevronRight size={12} />
+                            <a href={`/app/tasks`} className="px-4 sm:px-5 py-2.5 bg-zinc-100 dark:bg-white/5 text-zinc-900 dark:text-white text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-xl hover:bg-zinc-200 dark:hover:bg-white/10 transition-all flex items-center gap-2 border border-zinc-200 dark:border-white/10">
+                               Go to Task <ChevronRight size={12} />
                             </a>
                           )}
-                          <button 
-                             onClick={() => updateStatusMutation.mutate({ id: req._id, status: 'completed' })}
-                             className="px-5 py-2.5 border border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-zinc-400 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-zinc-100 dark:hover:bg-white/5 transition-all ml-2"
-                          >
-                             Archive Case
-                          </button>
-                         </>
+                         </div>
                        )}
 
                        {req.status === 'completed' && (
-                          <div className="flex items-center gap-2 text-zinc-500 text-[10px] font-black uppercase tracking-widest">
+                          <div className="flex items-center gap-2 text-zinc-500 text-[10px] font-bold uppercase tracking-wider">
                              <CheckCircle size={16} />
                              Case Archived
                           </div>
@@ -293,7 +286,7 @@ const AdminHelpRequestsPage: React.FC = () => {
       ) : (
         <div className="py-24 text-center bg-zinc-50 dark:bg-[#0a0a0a] rounded-2xl border border-dashed border-zinc-200 dark:border-white/10">
            <MessageSquare size={32} className="mx-auto text-zinc-400 dark:text-zinc-600 mb-4" />
-           <h3 className="text-lg font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest">No Intelligence Signal</h3>
+           <h3 className="text-lg font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">No Intelligence Signal</h3>
            <p className="text-zinc-400 mt-1 font-medium text-xs">Total Sector Silence Detected</p>
         </div>
       )}

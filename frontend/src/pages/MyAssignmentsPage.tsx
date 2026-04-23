@@ -104,7 +104,7 @@ const MyAssignmentsPage: React.FC = () => {
                  <CheckCircle size={20} className="text-emerald-600 dark:text-emerald-500" />
               </div>
               <div>
-                 <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Completed</p>
+                 <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Completed</p>
                  <p className="text-xl font-semibold text-zinc-900 dark:text-white">{assignments.filter(a => a.status === 'completed').length}</p>
               </div>
            </div>
@@ -113,7 +113,7 @@ const MyAssignmentsPage: React.FC = () => {
                  <Clock size={20} className="text-amber-600 dark:text-amber-500" />
               </div>
               <div>
-                 <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">In Progress</p>
+                 <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">In Progress</p>
                  <p className="text-xl font-semibold text-zinc-900 dark:text-white">{assignments.filter(a => a.status === 'accepted').length}</p>
               </div>
            </div>
@@ -122,7 +122,7 @@ const MyAssignmentsPage: React.FC = () => {
                  <AlertTriangle size={20} className="text-rose-600 dark:text-rose-500" />
               </div>
               <div>
-                 <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Pending</p>
+                 <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Pending</p>
                  <p className="text-xl font-semibold text-zinc-900 dark:text-white">{assignments.filter(a => a.status === 'assigned').length}</p>
               </div>
            </div>

@@ -78,23 +78,22 @@ const AdminAssignmentPage: React.FC = () => {
         <div className="space-y-2">
            <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-1">
               <Zap size={10} className="text-amber-500 fill-amber-500" />
-              AI Orchestration
+              AI Matching
            </div>
-           <h1 className="text-4xl font-light tracking-tight text-zinc-900 dark:text-white leading-tight">
+           <h1 className="text-2xl sm:text-4xl font-light tracking-tight text-zinc-900 dark:text-white leading-tight">
               Unit <span className="font-semibold">Deployment</span>
            </h1>
            <p className="text-zinc-500 dark:text-zinc-400 text-sm font-light">
-              High-precision volunteer matching and resource allocation.
+              AI-powered volunteer matching and allocation.
            </p>
         </div>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-         {}
          <div className="space-y-6">
-            <div className="bg-white dark:bg-[#121212] rounded-2xl border border-zinc-200 dark:border-white/5 p-6 shadow-sm">
-               <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-4 block">Select a Task</label>
-               <div className="space-y-3">
+            <div className="bg-white dark:bg-[#121212] rounded-2xl border border-zinc-200 dark:border-white/5 p-5 sm:p-6 shadow-sm">
+               <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-4 block">Select Objective</label>
+               <div className="space-y-3 max-h-[40vh] sm:max-h-none overflow-y-auto no-scrollbar">
                   {tasks.length > 0 ? tasks.map(task => (
                     <button
                       key={task._id}
@@ -106,31 +105,27 @@ const AdminAssignmentPage: React.FC = () => {
                           : "bg-zinc-50 border-zinc-100 dark:bg-white/5 dark:border-transparent hover:border-zinc-300 dark:hover:border-white/20"
                       )}
                     >
-                       <div className="relative z-10">
+                       <div className="relative z-10 min-w-0">
                           <p className={clsx(
-                            "text-xs font-bold leading-tight mb-1",
+                            "text-xs font-bold leading-tight mb-2 truncate",
                             selectedTaskId === task._id ? "text-white dark:text-black" : "text-zinc-900 dark:text-white"
                           )}>{task.title}</p>
-                          <div className="flex items-center gap-3">
+                          <div className="flex flex-wrap items-center gap-2">
                              <p className={clsx(
-                               "text-[9px] font-black uppercase tracking-widest",
+                               "text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border border-current opacity-60",
                                selectedTaskId === task._id ? "text-zinc-400" : "text-zinc-500"
-                             )}>{task.priority} Priority</p>
-                             <div className={clsx(
-                               "w-1 h-1 rounded-full",
-                               selectedTaskId === task._id ? "bg-zinc-400" : "bg-zinc-300"
-                             )} />
+                             )}>{task.priority}</p>
                              <p className={clsx(
-                               "text-[9px] font-black uppercase tracking-widest",
+                               "text-[8px] font-bold uppercase tracking-wider",
                                selectedTaskId === task._id ? "text-zinc-400" : "text-zinc-500"
-                             )}>{task.volunteersNeeded} units needed</p>
+                             )}>{task.volunteersNeeded} slots</p>
                           </div>
                        </div>
                     </button>
                   )) : (
                     <div className="py-10 text-center border border-dashed border-zinc-200 dark:border-white/10 rounded-xl">
                        <Shield size={24} className="mx-auto text-zinc-300 dark:text-zinc-800 mb-2" />
-                       <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest">All tasks assigned</p>
+                       <p className="text-xs font-bold text-zinc-400 uppercase tracking-wider">All clear</p>
                     </div>
                   )}
                </div>
@@ -140,28 +135,27 @@ const AdminAssignmentPage: React.FC = () => {
                <motion.div 
                  initial={{ opacity: 0, scale: 0.95 }}
                  animate={{ opacity: 1, scale: 1 }}
-                 className="bg-zinc-900 dark:bg-white p-8 rounded-3xl shadow-xl space-y-6 relative overflow-hidden"
+                 className="bg-zinc-900 dark:bg-white p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl space-y-6 relative overflow-hidden"
                >
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 dark:bg-black/5 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
-                  <div className="space-y-1 relative z-10">
-                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Ready for Intelligence Sweep</p>
-                     <h3 className="text-xl font-semibold text-white dark:text-black">{selectedTask.title}</h3>
+                  <div className="space-y-1 relative z-10 min-w-0">
+                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">Matching Optimized</p>
+                     <h3 className="text-lg sm:text-xl font-semibold text-white dark:text-black truncate">{selectedTask.title}</h3>
                   </div>
                   <button 
                     onClick={runAIOrchestration}
                     disabled={loading}
-                    className="w-full py-4 bg-white dark:bg-black text-black dark:text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center justify-center gap-3 disabled:opacity-50 active:scale-95"
+                    className="w-full py-4 bg-white dark:bg-black text-black dark:text-white rounded-2xl font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] shadow-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center justify-center gap-3 disabled:opacity-50 active:scale-95"
                   >
-                    {loading ? <Loader2 className="animate-spin" size={18} /> : <Play size={16} fill="currentColor" />}
-                    Initiate Neural Sweep
+                    {loading ? <Loader2 className="animate-spin" size={18} /> : <Play size={14} fill="currentColor" />}
+                    Start AI Match
                   </button>
                </motion.div>
             )}
          </div>
 
-         {}
          <div className="lg:col-span-2 space-y-8">
-            <div className="bg-white dark:bg-[#121212] rounded-2xl border border-zinc-200 dark:border-white/5 p-6 md:p-10 shadow-sm relative overflow-hidden min-h-[65vh]">
+            <div className="bg-white dark:bg-[#121212] rounded-2xl border border-zinc-200 dark:border-white/5 p-5 sm:p-6 md:p-10 shadow-sm relative overflow-hidden min-h-[60vh] sm:min-h-[65vh]">
                <div className="absolute top-0 right-0 w-96 h-96 bg-zinc-500/5 blur-3xl rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
                
                <AnimatePresence mode="wait">
@@ -177,7 +171,7 @@ const AdminAssignmentPage: React.FC = () => {
                         <Sparkles size={32} className="text-zinc-200 dark:text-zinc-700" />
                       </div>
                       <div className="space-y-1">
-                         <h3 className="text-lg font-semibold text-zinc-900 dark:text-white uppercase tracking-widest">Awaiting Sector Signal</h3>
+                         <h3 className="text-lg font-semibold text-zinc-900 dark:text-white uppercase tracking-wider">Awaiting Sector Signal</h3>
                          <p className="text-zinc-400 text-sm font-light">Select a strategic objective to begin AI personnel orchestration.</p>
                       </div>
                    </motion.div>
@@ -199,7 +193,7 @@ const AdminAssignmentPage: React.FC = () => {
                       </div>
                       <div className="space-y-2">
                          <h3 className="text-xl font-bold text-zinc-900 dark:text-white animate-pulse">Running Neural Matching...</h3>
-                         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 italic">Accessing Responder Tactical Data</p>
+                         <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400 italic">Accessing Responder Tactical Data</p>
                       </div>
                    </motion.div>
                  )}
@@ -211,16 +205,16 @@ const AdminAssignmentPage: React.FC = () => {
                       animate={{ opacity: 1 }}
                       className="space-y-8 relative z-10"
                     >
-                       <div className="flex items-center justify-between border-b border-zinc-100 dark:border-white/5 pb-6">
-                          <div>
-                             <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">AI Optimization Results</h3>
-                             <p className="text-[9px] font-black uppercase tracking-widest text-zinc-400 mt-1">Found {results.length} high-probability response unit matches</p>
-                          </div>
-                          <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest">
-                             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                             Precise Match
-                          </div>
-                       </div>
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-white/5 pb-6">
+                           <div className="min-w-0">
+                              <h3 className="text-lg sm:text-xl font-semibold text-zinc-900 dark:text-white">AI Optimization Results</h3>
+                              <p className="text-[9px] font-bold uppercase tracking-wider text-zinc-400 mt-1">Found {results.length} response matches</p>
+                           </div>
+                           <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wider w-fit">
+                              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                              Precision Match
+                           </div>
+                        </div>
 
                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           {results.map((assignment, i) => (
@@ -234,11 +228,11 @@ const AdminAssignmentPage: React.FC = () => {
                        </div>
 
                        {suggestions.length > 0 && (
-                          <div className="space-y-8 pt-10 mt-10 border-t border-zinc-100 dark:border-white/5">
-                             <div>
-                                <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">Other Available Volunteers</h3>
-                                <p className="text-[9px] font-black uppercase tracking-widest text-zinc-400 mt-1">Volunteers who match skills but are further away</p>
-                             </div>
+                           <div className="space-y-8 pt-10 mt-10 border-t border-zinc-100 dark:border-white/5">
+                              <div>
+                                 <h3 className="text-lg sm:text-xl font-semibold text-zinc-900 dark:text-white">Global Search Matches</h3>
+                                 <p className="text-[9px] font-bold uppercase tracking-wider text-zinc-400 mt-1">Found candidates outside primary sector</p>
+                              </div>
                              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 {suggestions.map((suggestion, i) => (
                                    <SuggestionCard 
@@ -256,7 +250,7 @@ const AdminAssignmentPage: React.FC = () => {
                        {results.length === 0 && suggestions.length === 0 && (
                           <div className="py-20 text-center bg-zinc-50 dark:bg-white/[0.01] rounded-3xl border border-dashed border-zinc-200 dark:border-white/10">
                              <AlertCircle size={32} className="mx-auto text-rose-500 mb-4" />
-                             <h4 className="text-zinc-600 dark:text-zinc-400 font-bold uppercase tracking-widest">Tactical Mismatch</h4>
+                             <h4 className="text-zinc-600 dark:text-zinc-400 font-bold uppercase tracking-wider">Tactical Mismatch</h4>
                              <p className="text-xs text-zinc-400 mt-1 font-light italic">No responders currently meet the sector skill criteria.</p>
                           </div>
                        )}
@@ -290,7 +284,7 @@ const RatingSection: React.FC<{ volunteerId: string }> = ({ volunteerId }) => {
 
   return (
     <div className="pt-4 border-t border-zinc-100 dark:border-white/5 space-y-2">
-       <p className="text-[9px] font-black uppercase tracking-widest text-zinc-400">Tactical Performance Rating</p>
+       <p className="text-[9px] font-bold uppercase tracking-wider text-zinc-400">Tactical Performance Rating</p>
        <div className="flex items-center gap-1.5">
           {[1, 2, 3, 4, 5].map((star) => (
             <button
@@ -353,8 +347,8 @@ const AIResultCard: React.FC<{assignment: Assignment; onRevoke: (aid: string) =>
 
       <div className="space-y-4">
          <div className="flex items-center justify-between">
-            <span className="text-[9px] font-black uppercase tracking-widest text-zinc-400">Tactical Match Prob.</span>
-            <span className="text-xs font-black text-emerald-500">{(assignment.aiScore * 100).toFixed(0)}%</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider text-zinc-400">Tactical Match Prob.</span>
+            <span className="text-xs font-bold text-emerald-500">{(assignment.aiScore * 100).toFixed(0)}%</span>
          </div>
          <div className="h-1 bg-zinc-100 dark:bg-white/5 rounded-full overflow-hidden">
             <motion.div 
@@ -376,7 +370,7 @@ const AIResultCard: React.FC<{assignment: Assignment; onRevoke: (aid: string) =>
          ))}
       </div>
 
-      <div className="pt-4 border-t border-zinc-100 dark:border-white/5 flex items-center justify-between text-[10px] font-black uppercase tracking-[0.1em]">
+      <div className="pt-4 border-t border-zinc-100 dark:border-white/5 flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.1em]">
          <div className="flex items-center gap-1.5 text-zinc-400">
             <MapPin size={12} />
             {isTooFar ? "> 50km" : "< 15km"} Range
@@ -434,7 +428,7 @@ const SuggestionCard: React.FC<{suggestion: any; index: number, taskId: string, 
          <button 
            onClick={handleManualAssign}
            disabled={loading}
-           className="px-3 py-1.5 bg-zinc-900 dark:bg-white text-white dark:text-black text-[9px] font-black uppercase tracking-widest rounded-lg hover:opacity-80 transition-all disabled:opacity-50"
+           className="px-3 py-1.5 bg-zinc-900 dark:bg-white text-white dark:text-black text-[9px] font-bold uppercase tracking-wider rounded-lg hover:opacity-80 transition-all disabled:opacity-50"
          >
             {loading ? <Loader2 size={12} className="animate-spin" /> : "Assign Volunteer"}
          </button>
@@ -442,8 +436,8 @@ const SuggestionCard: React.FC<{suggestion: any; index: number, taskId: string, 
 
       <div className="space-y-4">
          <div className="flex items-center justify-between">
-            <span className="text-[9px] font-black uppercase tracking-widest text-zinc-400">Match Accuracy</span>
-            <span className="text-xs font-black text-amber-500">{(suggestion.aiScore * 100).toFixed(0)}%</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider text-zinc-400">Match Accuracy</span>
+            <span className="text-xs font-bold text-amber-500">{(suggestion.aiScore * 100).toFixed(0)}%</span>
          </div>
          <div className="h-1 bg-zinc-100 dark:bg-white/5 rounded-full overflow-hidden">
             <motion.div 
@@ -466,7 +460,7 @@ const SuggestionCard: React.FC<{suggestion: any; index: number, taskId: string, 
          ))}
       </div>
 
-      <div className="pt-4 border-t border-zinc-100 dark:border-white/5 flex items-center justify-between text-[10px] font-black uppercase tracking-[0.1em]">
+      <div className="pt-4 border-t border-zinc-100 dark:border-white/5 flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.1em]">
          <div className="flex items-center gap-1.5 text-zinc-400">
             <MapPin size={12} />
             <span className={clsx(

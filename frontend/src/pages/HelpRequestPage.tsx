@@ -81,7 +81,7 @@ const HelpRequestPage: React.FC = () => {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-widest text-zinc-500 flex items-center gap-1.5 pl-1">
+              <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 pl-1">
                 <User size={14} /> Contact Name
               </label>
               <input
@@ -94,7 +94,7 @@ const HelpRequestPage: React.FC = () => {
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-widest text-zinc-500 flex items-center gap-1.5 pl-1">
+              <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 pl-1">
                 <Phone size={14} /> Mobile Number
               </label>
               <input
@@ -114,7 +114,7 @@ const HelpRequestPage: React.FC = () => {
 
           <div className="space-y-1.5">
             <div className="flex justify-between items-end pr-1">
-              <label className="text-xs font-semibold uppercase tracking-widest text-zinc-500 flex items-center gap-1.5 pl-1">
+              <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 pl-1">
                 <MessageSquare size={14} /> Problem Description
               </label>
               <span className="text-[10px] font-medium text-rose-500/80 dark:text-rose-400/80 uppercase tracking-tighter bg-rose-500/5 px-1.5 py-0.5 rounded border border-rose-500/10">
@@ -132,7 +132,7 @@ const HelpRequestPage: React.FC = () => {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-widest text-zinc-500 flex items-center gap-1.5 pl-1">
+            <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 pl-1">
               <MapPin size={14} /> Location Address
             </label>
             <div className="relative">
@@ -149,7 +149,7 @@ const HelpRequestPage: React.FC = () => {
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-widest text-zinc-500 flex items-center gap-1.5 pl-1">
+              <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 pl-1">
                 <Users size={14} /> Volunteers Needed
               </label>
               <input
@@ -161,7 +161,7 @@ const HelpRequestPage: React.FC = () => {
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-widest text-zinc-500 flex items-center gap-1.5 pl-1">
+              <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 pl-1">
                 <AlertTriangle size={14} /> Priority Level
               </label>
               <select

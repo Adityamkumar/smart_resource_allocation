@@ -124,7 +124,7 @@ const RegisterPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {}
             <div className="space-y-4">
-              <h3 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-2">Basic Information</h3>
+              <h3 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-2">Basic Information</h3>
               
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 tracking-wide pl-1">Full Name</label>
@@ -189,7 +189,7 @@ const RegisterPage: React.FC = () => {
 
             {}
             <div className="space-y-4">
-               <h3 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-2">Skills & Location</h3>
+               <h3 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-2">Skills & Location</h3>
 
                <div className="space-y-1.5 text-left">
                   <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 tracking-wide pl-1 block">Skills (Select multiple)</label>
@@ -265,7 +265,7 @@ const RegisterPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="pt-1">
-                    <p className="text-[9px] font-bold uppercase tracking-widest text-zinc-400 mb-1.5 pl-1">Identified Address</p>
+                    <p className="text-[9px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5 pl-1">Identified Address</p>
                     <div className="p-3 bg-zinc-50 dark:bg-[#0a0a0a] rounded-lg border border-zinc-200 dark:border-white/5 text-xs text-zinc-600 dark:text-zinc-400 font-medium min-h-[50px] leading-relaxed">
                       {formData.address || 'Search above or use GPS detect...'}
                     </div>

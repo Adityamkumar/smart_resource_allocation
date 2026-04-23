@@ -40,34 +40,34 @@ const TrackRequestPage: React.FC = () => {
            <div className="w-14 h-14 bg-zinc-900 dark:bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl active:scale-95 transition-transform cursor-pointer">
               <Shield size={24} className="text-white dark:text-black" />
            </div>
-           <h1 className="text-4xl font-light tracking-tight text-zinc-900 dark:text-white">Track Your <span className="font-semibold">Support Wave</span></h1>
-           <p className="text-zinc-500 dark:text-zinc-400 text-sm max-w-md mx-auto font-light">
-             Enter the mobile number used during submission to monitor status and provide performance feedback.
-           </p>
+            <h1 className="text-2xl sm:text-4xl font-light tracking-tight text-zinc-900 dark:text-white leading-tight">Track Your <span className="font-semibold">Support Wave</span></h1>
+            <p className="text-zinc-500 dark:text-zinc-400 text-sm max-w-sm mx-auto font-light leading-relaxed">
+              Enter your mobile number to view status and provide feedback.
+            </p>
         </motion.div>
 
-        <motion.form 
-          onSubmit={handleTrack}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="relative max-w-md mx-auto"
-        >
-           <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
-           <input 
-             type="tel"
-             placeholder="Enter 10-digit mobile number..."
-             value={phone}
-             onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-             maxLength={10}
-             className="w-full pl-12 pr-32 py-4 bg-white dark:bg-[#121212] border border-zinc-200 dark:border-white/10 rounded-2xl outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-white transition-all text-sm font-medium dark:text-white shadow-sm"
-           />
-           <button 
-             disabled={loading}
-             className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 bg-zinc-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-xs uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50"
-           >
-             {loading ? <Loader2 size={16} className="animate-spin" /> : "Sync Data"}
-           </button>
-        </motion.form>
+         <motion.form 
+           onSubmit={handleTrack}
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+           className="relative max-w-md mx-auto group"
+         >
+            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
+            <input 
+              type="tel"
+              placeholder="10-digit number..."
+              value={phone}
+              onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
+              maxLength={10}
+              className="w-full pl-12 pr-28 sm:pr-32 py-4 bg-white dark:bg-[#121212] border border-zinc-200 dark:border-white/10 rounded-2xl outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-white transition-all text-sm font-medium dark:text-white shadow-sm"
+            />
+            <button 
+              disabled={loading}
+              className="absolute right-2 top-1/2 -translate-y-1/2 px-4 sm:px-6 py-2 bg-zinc-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-[10px] sm:text-xs uppercase tracking-wider hover:opacity-90 transition-all disabled:opacity-50"
+            >
+              {loading ? <Loader2 size={14} className="animate-spin" /> : "Track"}
+            </button>
+         </motion.form>
 
         <div className="space-y-6">
            <AnimatePresence mode="popLayout">
@@ -110,50 +110,53 @@ const RequestCard: React.FC<{ request: any, index: number }> = ({ request, index
       initial={{ opacity: 0, scale: 0.98, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
-      className="bg-white dark:bg-[#121212] border border-zinc-200 dark:border-white/10 rounded-3xl p-8 shadow-sm overflow-hidden relative group"
-    >
-       <div className="absolute top-0 right-0 p-8 flex items-center gap-3">
-          <button 
-            onClick={() => setUseHindi(!useHindi)}
-            className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-zinc-200 dark:border-white/10 text-zinc-500 hover:bg-zinc-100 dark:hover:bg-white/5 transition-all"
-          >
-            {useHindi ? "Show English" : "Translate to Hindi"}
-          </button>
-          <div className={clsx(
-            "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border",
-            request.status === 'completed' ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" :
-            request.status === 'pending' ? "bg-amber-500/10 border-amber-500/20 text-amber-500" :
-            "bg-zinc-100 border-zinc-200 text-zinc-500 dark:bg-white/5 dark:border-white/10"
-          )}>
-            {request.status}
-          </div>
-       </div>
+       className="bg-white dark:bg-[#121212] border border-zinc-200 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm overflow-hidden relative group"
+     >
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 relative z-10">
+           <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-rose-500">
+              <Heart size={12} fill="currentColor" />
+              <span>Signal Live</span>
+           </div>
+           
+           <div className="flex items-center gap-3">
+              <button 
+                onClick={() => setUseHindi(!useHindi)}
+                className="px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider border border-zinc-200 dark:border-white/10 text-zinc-500 hover:bg-zinc-100 dark:hover:bg-white/5 transition-all"
+              >
+                {useHindi ? "English" : "Hindi"}
+              </button>
+              <div className={clsx(
+                "px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider border",
+                request.status === 'completed' ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" :
+                request.status === 'pending' ? "bg-amber-500/10 border-amber-500/20 text-amber-500" :
+                "bg-zinc-100 border-zinc-200 text-zinc-500 dark:bg-white/5 dark:border-white/10"
+              )}>
+                {request.status}
+              </div>
+           </div>
+        </div>
 
-       <div className="space-y-6 mb-8">
-          <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-rose-500">
-             <Heart size={12} fill="currentColor" />
-             <span>Signal Live</span>
-          </div>
-          <h3 className="text-2xl font-semibold text-zinc-900 dark:text-white leading-tight">
-            {displayDescription}
-          </h3>
-          <div className="flex flex-wrap gap-6 text-sm text-zinc-500 dark:text-zinc-400 font-light">
-             <div className="flex items-center gap-2">
-                <MapPin size={16} className="text-zinc-300" />
-                {request.location.address}
-             </div>
-             <div className="flex items-center gap-2">
-                <Calendar size={16} className="text-zinc-300" />
-                {new Date(request.createdAt).toLocaleDateString()}
-             </div>
-          </div>
+        <div className="space-y-4 mb-8">
+           <h3 className="text-xl sm:text-2xl font-semibold text-zinc-900 dark:text-white leading-tight">
+             {displayDescription}
+           </h3>
+           <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-sm text-zinc-500 dark:text-zinc-400 font-light">
+              <div className="flex items-center gap-2">
+                 <MapPin size={14} className="text-zinc-300 shrink-0" />
+                 <span className="truncate max-w-[280px]">{request.location.address}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                 <Calendar size={14} className="text-zinc-300 shrink-0" />
+                 {new Date(request.createdAt).toLocaleDateString()}
+              </div>
+           </div>
        </div>
 
        {request.assignedVolunteers && request.assignedVolunteers.length > 0 && (
          <div className="pt-8 border-t border-zinc-100 dark:border-white/5 space-y-6">
             <div className="flex items-center gap-2">
                <CheckCircle2 size={16} className="text-emerald-500" />
-               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-900 dark:text-white">Active Responders Deployed</p>
+               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-900 dark:text-white">Active Responders Deployed</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -196,19 +199,19 @@ const PublicRatingCard: React.FC<{ volunteer: any, requestId: string }> = ({ vol
   return (
     <div className="bg-zinc-50 dark:bg-white/5 border border-transparent dark:hover:border-white/10 p-6 rounded-3xl transition-all space-y-6">
        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-zinc-200 dark:bg-white/10 flex items-center justify-center font-black text-zinc-500 text-lg shadow-sm">
+          <div className="w-12 h-12 rounded-2xl bg-zinc-200 dark:bg-white/10 flex items-center justify-center font-bold text-zinc-500 text-lg shadow-sm">
              {volunteer.name[0]}
           </div>
           <div className="min-w-0">
              <p className="text-sm font-bold text-zinc-900 dark:text-white truncate leading-none mb-1">{volunteer.name}</p>
-             <p className="text-[10px] font-medium text-zinc-400 uppercase tracking-widest leading-none">Volunteer</p>
+             <p className="text-[10px] font-medium text-zinc-400 uppercase tracking-wider leading-none">Volunteer</p>
           </div>
        </div>
 
        {!submitted ? (
          <div className="space-y-4">
             <div className="space-y-3">
-               <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Leave a Message</p>
+               <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Leave a Message</p>
                <textarea 
                  placeholder="How was the service? (Optional)"
                  value={message}
@@ -219,7 +222,7 @@ const PublicRatingCard: React.FC<{ volunteer: any, requestId: string }> = ({ vol
             </div>
 
             <div className="space-y-3">
-               <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Rate your experience</p>
+               <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Rate your experience</p>
                <div className="flex items-center gap-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button

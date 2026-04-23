@@ -39,7 +39,7 @@ const AdminVolunteersPage: React.FC = () => {
         className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-zinc-200 dark:border-white/5 pb-8"
       >
         <div className="space-y-1.5">
-           <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">
+           <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">
               <Users size={10} className="text-zinc-900 dark:text-white" />
               Human Assets
            </div>
@@ -64,7 +64,7 @@ const AdminVolunteersPage: React.FC = () => {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-40 gap-4">
            <Loader2 className="animate-spin text-zinc-300" size={40} />
-           <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Syncing Personnel Database...</p>
+           <p className="text-xs font-bold uppercase tracking-wider text-zinc-400">Syncing Personnel Database...</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -113,14 +113,14 @@ const VolunteerCard: React.FC<{ volunteer: any, index: number, onRated: () => vo
       <div className="absolute top-0 right-0 w-24 h-24 bg-zinc-500/5 blur-2xl rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       
       <div className="flex items-center gap-4 mb-6 relative z-10">
-         <div className="w-12 h-12 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-100 dark:border-white/10 flex items-center justify-center text-lg font-black text-zinc-400 dark:text-zinc-500">
+         <div className="w-12 h-12 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-100 dark:border-white/10 flex items-center justify-center text-lg font-bold text-zinc-400 dark:text-zinc-500">
            {volunteer.name[0]}
          </div>
          <div className="min-w-0">
             <h3 className="text-base font-bold text-zinc-900 dark:text-white truncate leading-none mb-1">{volunteer.name}</h3>
             <div className="flex items-center gap-2">
                <div className={clsx("w-1.5 h-1.5 rounded-full", volunteer.availability ? "bg-emerald-500" : "bg-zinc-400")} />
-               <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">{volunteer.availability ? 'Available' : 'Offline'}</p>
+               <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">{volunteer.availability ? 'Available' : 'Offline'}</p>
             </div>
          </div>
       </div>
@@ -146,10 +146,10 @@ const VolunteerCard: React.FC<{ volunteer: any, index: number, onRated: () => vo
       <div className="pt-6 border-t border-zinc-100 dark:border-white/5 space-y-4">
          <div className="flex items-center justify-between">
             <div className="space-y-1">
-               <p className="text-[9px] font-black uppercase tracking-widest text-zinc-400">Tactical Ranking</p>
+               <p className="text-[9px] font-bold uppercase tracking-wider text-zinc-400">Tactical Ranking</p>
                <div className="flex items-center gap-1.5">
                   <Star size={14} className="text-amber-500 fill-amber-500" />
-                  <span className="text-sm font-black text-zinc-900 dark:text-white">{(volunteer.rating || 0).toFixed(1)}</span>
+                  <span className="text-sm font-bold text-zinc-900 dark:text-white">{(volunteer.rating || 0).toFixed(1)}</span>
                   <span className="text-[10px] font-bold text-zinc-400">({volunteer.totalRatings || 0} reviews)</span>
                </div>
             </div>

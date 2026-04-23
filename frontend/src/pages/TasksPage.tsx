@@ -51,7 +51,7 @@ const TasksPage: React.FC = () => {
         {isAdmin && (
           <button 
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-100 text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all shadow-xl active:scale-95"
+            className="flex items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-100 text-white font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all shadow-xl active:scale-95"
           >
             <Plus size={16} />
             Add New Task
@@ -71,16 +71,16 @@ const TasksPage: React.FC = () => {
           />
         </div>
         
-        <div className="flex items-center gap-3 w-full lg:w-auto">
-          <div className="flex items-center gap-2 bg-zinc-100 dark:bg-[#121212] p-1 rounded-xl border border-zinc-200 dark:border-white/10 overflow-x-auto custom-scrollbar">
+        <div className="flex items-center gap-3 w-full lg:w-auto overflow-hidden">
+          <div className="flex items-center gap-2 bg-zinc-100 dark:bg-[#121212] p-1.5 rounded-xl border border-zinc-200 dark:border-white/10 overflow-x-auto no-scrollbar scroll-smooth">
             {['all', 'open', 'in-progress', 'completed'].map((status) => (
               <button
                 key={status}
                 onClick={() => setStatusFilter(status as any)}
                 className={clsx(
-                  "px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all whitespace-nowrap",
+                  "px-4 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all whitespace-nowrap min-w-[100px]",
                   statusFilter === status 
-                    ? "bg-white dark:bg-white/10 text-zinc-950 dark:text-white shadow-sm" 
+                    ? "bg-white dark:bg-white/10 text-zinc-950 dark:text-white shadow-sm ring-1 ring-black/5" 
                     : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300"
                 )}
               >
@@ -119,7 +119,7 @@ const TasksPage: React.FC = () => {
       ) : (
         <div className="py-32 text-center bg-zinc-50 dark:bg-[#121212] rounded-3xl border border-dashed border-zinc-200 dark:border-white/5">
           <Info className="mx-auto text-zinc-300 dark:text-zinc-700 mb-4" size={40} />
-          <h3 className="text-lg font-light text-zinc-900 dark:text-zinc-100 uppercase tracking-widest">No Active Missions</h3>
+          <h3 className="text-lg font-light text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">No Active Missions</h3>
           <p className="text-zinc-400 mt-2 text-sm font-light">All tactical sectors reporting clear status.</p>
         </div>
       )}
@@ -300,14 +300,14 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="bg-white dark:bg-[#0a0a0a] w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden relative z-10 border border-zinc-200 dark:border-white/5"
+          className="bg-white dark:bg-[#0a0a0a] w-full max-w-2xl rounded-[1.5rem] sm:rounded-[2.5rem] shadow-2xl overflow-hidden relative z-10 border border-zinc-200 dark:border-white/5 mx-auto"
         >
-           <div className="p-8 border-b border-zinc-100 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-white/[0.02]">
+           <div className="p-6 sm:p-8 border-b border-zinc-100 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-white/[0.02]">
               <div>
-                  <h2 className="text-2xl font-light text-zinc-900 dark:text-white">Create New <span className="font-semibold">Task</span></h2>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mt-1">Fill details for others to help</p>
+                  <h2 className="text-xl sm:text-2xl font-light text-zinc-900 dark:text-white">Create New <span className="font-semibold">Task</span></h2>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mt-1">Fill details for others to help</p>
               </div>
-              <button onClick={onClose} className="p-3 hover:bg-zinc-100 dark:hover:bg-white/5 rounded-2xl transition-all text-zinc-400 hover:text-zinc-900 dark:hover:text-white">
+              <button onClick={onClose} className="p-2 sm:p-3 hover:bg-zinc-100 dark:hover:bg-white/5 rounded-2xl transition-all text-zinc-400 hover:text-zinc-900 dark:hover:text-white">
                  <X size={20} />
               </button>
            </div>
@@ -315,7 +315,7 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
             <div className="px-8 pt-8 pb-4 bg-indigo-500/5 dark:bg-white/5 border-b border-zinc-200 dark:border-white/5">
                 <div className="flex items-center gap-2 mb-4">
                     <Sparkles size={16} className="text-indigo-500" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-indigo-500">Quick Auto-Fill (AI Powered)</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-500">Quick Auto-Fill (AI Powered)</span>
                 </div>
                 <div className="flex gap-3">
                     <textarea 
@@ -328,7 +328,7 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
                         type="button"
                         onClick={handleAiTriage}
                         disabled={isTriaging}
-                        className="px-6 bg-zinc-900 dark:bg-white text-white dark:text-black rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-all flex flex-col items-center justify-center gap-2 disabled:opacity-50 min-w-[120px]"
+                        className="px-6 bg-zinc-900 dark:bg-white text-white dark:text-black rounded-2xl font-bold text-[10px] uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-all flex flex-col items-center justify-center gap-2 disabled:opacity-50 min-w-[120px]"
                     >
                         {isTriaging ? <Loader2 className="animate-spin" size={16} /> : <Sparkles size={16} />}
                         Analyze
@@ -337,9 +337,9 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
                 <p className="text-[9px] text-zinc-400 mt-3 italic">AI will automatically extract title, description, priority, skills, and location.</p>
             </div>
 
-            <form onSubmit={handleCreate} className="p-8 space-y-8 max-h-[50vh] overflow-y-auto custom-scrollbar">
+            <form onSubmit={handleCreate} className="p-6 sm:p-8 space-y-6 sm:space-y-8 max-h-[60vh] sm:max-h-[50vh] overflow-y-auto no-scrollbar">
               <div className="space-y-3">
-                 <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Mission Title</label>
+                 <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Mission Title</label>
                  <input 
                    type="text" required
                    value={formData.title}
@@ -350,7 +350,7 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
               </div>
 
               <div className="space-y-3">
-                 <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Task Summary</label>
+                 <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Task Summary</label>
                  <textarea 
                    required rows={4}
                    value={formData.description}
@@ -360,9 +360,9 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
                  />
               </div>
 
-              <div className="grid grid-cols-2 gap-8">
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                  <div className="space-y-3">
-                   <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Volunteers Needed</label>
+                   <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Volunteers Needed</label>
                    <input 
                      type="number" min="1" required
                      value={formData.volunteersNeeded}
@@ -371,7 +371,7 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
                    />
                  </div>
                  <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Urgency Level</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Urgency Level</label>
                     <select 
                       value={formData.priority}
                       onChange={(e) => setFormData({...formData, priority: e.target.value as any})}
@@ -385,7 +385,7 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
               </div>
 
               <div className="space-y-4">
-                 <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Skillset Filters</label>
+                 <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Skillset Filters</label>
                  <div className="flex flex-wrap gap-2">
                     {AVAILABLE_SKILLS.map(skill => {
                       const isSelected = formData.requiredSkills.includes(skill);
@@ -394,7 +394,7 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
                           key={skill} type="button"
                           onClick={() => toggleSkill(skill)}
                           className={clsx(
-                            "px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border-2 transition-all",
+                            "px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider border-2 transition-all",
                             isSelected ? "bg-zinc-900 border-zinc-900 text-white dark:bg-white dark:border-white dark:text-black" : "bg-transparent border-zinc-100 dark:border-white/5 text-zinc-400 hover:border-zinc-200"
                           )}
                         >
@@ -407,12 +407,12 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
 
               <div className="space-y-5 pt-6 border-t border-zinc-100 dark:border-white/5">
                  <div className="flex items-center justify-between">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Task Location</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Task Location</label>
                     <button 
                       type="button" 
                       disabled={isLocating}
                       onClick={getCurrentLocation}
-                      className="flex items-center gap-2 px-4 py-2 bg-zinc-100 dark:bg-white/5 text-zinc-900 dark:text-white rounded-xl hover:bg-zinc-200 transition-all font-black text-[9px] uppercase tracking-[0.2em] disabled:opacity-50"
+                      className="flex items-center gap-2 px-4 py-2 bg-zinc-100 dark:bg-white/5 text-zinc-900 dark:text-white rounded-xl hover:bg-zinc-200 transition-all font-bold text-[9px] uppercase tracking-[0.2em] disabled:opacity-50"
                     >
                       {isLocating ? <Loader2 className="animate-spin" size={14} /> : <MapPin size={14} />}
                       Synchronize GPS
@@ -431,7 +431,7 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
                  </div>
 
                  <div className="p-5 bg-zinc-50 dark:bg-white/[0.02] rounded-[1.5rem] border border-zinc-100 dark:border-white/5">
-                    <p className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-3 flex items-center gap-2">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 flex items-center gap-2">
                        <Shield size={10} className="text-zinc-400" />
                        Delivery / Deployment Address
                     </p>
@@ -444,7 +444,7 @@ const CreateTaskModal: React.FC<{onClose: () => void}> = ({ onClose }) => {
               <div className="pt-4 border-t border-zinc-100 dark:border-white/5 pt-8">
                  <button 
                    type="submit" disabled={loading}
-                   className="w-full py-5 bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-100 text-white font-black text-xs uppercase tracking-widest rounded-2xl shadow-xl shadow-black/10 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:bg-zinc-300"
+                   className="w-full py-5 bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-100 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-xl shadow-black/10 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:bg-zinc-300"
                  >
                    {loading ? <Loader2 className="animate-spin" size={18} /> : <Plus size={18} />}
                    Create Task Now
@@ -520,17 +520,17 @@ const TaskDetailsModal: React.FC<{task: Task, onClose: () => void}> = ({ task, o
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="bg-white dark:bg-[#0a0a0a] w-full max-w-4xl rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] overflow-hidden relative z-10 border border-zinc-200 dark:border-white/5 flex flex-col max-h-[90vh]"
+          className="bg-white dark:bg-[#0a0a0a] w-full max-w-4xl rounded-[1.5rem] sm:rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] overflow-hidden relative z-10 border border-zinc-200 dark:border-white/5 flex flex-col max-h-[95vh] sm:max-h-[90vh] mx-auto"
         >
-           <div className="p-8 border-b border-zinc-100 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-white/[0.02]">
-              <div className="flex items-center gap-5">
-                 <div className="w-12 h-12 bg-zinc-900 dark:bg-white rounded-2xl flex items-center justify-center text-white dark:text-black shadow-lg">
-                    {task.status === 'completed' ? <CheckCircle size={22} /> : <Info size={22} />}
+           <div className="p-6 sm:p-8 border-b border-zinc-100 dark:border-white/5 flex items-center justify-between bg-zinc-50/50 dark:bg-white/[0.02]">
+              <div className="flex items-center gap-3 sm:gap-5 min-w-0">
+                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-zinc-900 dark:bg-white rounded-xl sm:rounded-2xl flex items-center justify-center text-white dark:text-black shadow-lg shrink-0">
+                    {task.status === 'completed' ? <CheckCircle size={20} /> : <Info size={20} />}
                  </div>
-                 <div>
-                    <h2 className="text-2xl font-light text-zinc-900 dark:text-white leading-none mb-2">{task.title}</h2>
+                 <div className="min-w-0">
+                    <h2 className="text-lg sm:text-2xl font-light text-zinc-900 dark:text-white leading-tight mb-1 truncate">{task.title}</h2>
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
-                      {task.status === 'completed' ? "Task History" : "View Task Information"}
+                      {task.status === 'completed' ? "Task History" : "Task Information"}
                     </p>
                  </div>
               </div>
@@ -553,7 +553,7 @@ const TaskDetailsModal: React.FC<{task: Task, onClose: () => void}> = ({ task, o
                     <button 
                       onClick={() => completeTaskMutation.mutate()}
                       disabled={completeTaskMutation.isPending}
-                      className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-black uppercase tracking-widest rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 disabled:grayscale"
+                      className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 disabled:grayscale"
                     >
                       {completeTaskMutation.isPending ? <Loader2 className="animate-spin" size={14} /> : <CheckCircle size={14} />}
                       Acknowledge Completion
@@ -564,12 +564,12 @@ const TaskDetailsModal: React.FC<{task: Task, onClose: () => void}> = ({ task, o
                  </button>
               </div>
            </div>
-
-           <div className="flex-1 overflow-y-auto p-10 lg:p-14 space-y-12 custom-scrollbar">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                 <div className="space-y-10">
+           
+           <div className="flex-1 overflow-y-auto p-6 sm:p-10 lg:p-14 space-y-8 sm:space-y-12 no-scrollbar">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+                 <div className="space-y-8 sm:space-y-10">
                     <div className="space-y-6">
-                       <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 flex items-center gap-3">
+                       <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 flex items-center gap-3">
                           <Shield size={14} className="text-zinc-300" />
                           Task Summary
                        </h4>
@@ -578,31 +578,31 @@ const TaskDetailsModal: React.FC<{task: Task, onClose: () => void}> = ({ task, o
                        </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
-                       <div className="p-6 bg-zinc-50 dark:bg-white/[0.02] rounded-[2rem] border border-zinc-100 dark:border-white/5">
-                          <p className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-2">Internal Status</p>
-                          <p className={clsx(
-                             "text-xs font-black uppercase tracking-widest",
-                             currentStatus === 'open' ? "text-emerald-500" : currentStatus === 'in-progress' ? "text-amber-500" : "text-zinc-400"
-                          )}>
-                             {currentStatus}
-                          </p>
-                       </div>
-                       <div className="p-6 bg-zinc-50 dark:bg-white/[0.02] rounded-[2rem] border border-zinc-100 dark:border-white/5">
-                          <p className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-2">Priority Vector</p>
-                          <p className={clsx(
-                             "text-xs font-black uppercase tracking-widest",
-                             task.priority === 'high' ? "text-rose-500" : task.priority === 'medium' ? "text-amber-500" : "text-blue-500"
-                          )}>
-                             {task.priority} Severity
-                          </p>
-                       </div>
-                    </div>
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                        <div className="p-5 sm:p-6 bg-zinc-50 dark:bg-white/[0.02] rounded-[1.5rem] sm:rounded-[2rem] border border-zinc-100 dark:border-white/5">
+                           <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">Status</p>
+                           <p className={clsx(
+                              "text-xs font-bold uppercase tracking-wider",
+                              currentStatus === 'open' ? "text-emerald-500" : currentStatus === 'in-progress' ? "text-amber-500" : "text-zinc-400"
+                           )}>
+                              {currentStatus}
+                           </p>
+                        </div>
+                        <div className="p-5 sm:p-6 bg-zinc-50 dark:bg-white/[0.02] rounded-[1.5rem] sm:rounded-[2rem] border border-zinc-100 dark:border-white/5">
+                           <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">Priority</p>
+                           <p className={clsx(
+                              "text-xs font-bold uppercase tracking-wider",
+                              task.priority === 'high' ? "text-rose-500" : task.priority === 'medium' ? "text-amber-500" : "text-blue-500"
+                           )}>
+                              {task.priority}
+                           </p>
+                        </div>
+                     </div>
 
                     <div className="p-6 bg-zinc-900 dark:bg-white rounded-[2rem] flex items-start gap-5 shadow-xl">
                        <MapPin className="text-zinc-400 dark:text-zinc-500 shrink-0 mt-1" size={24} />
                        <div>
-                          <p className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 mb-2">Deployment Zone</p>
+                          <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 mb-2">Deployment Zone</p>
                           <p className="text-sm font-semibold text-white dark:text-black leading-tight">
                              {task.address || "Strategic address information pending"}
                           </p>
@@ -610,10 +610,10 @@ const TaskDetailsModal: React.FC<{task: Task, onClose: () => void}> = ({ task, o
                     </div>
 
                     <div className="space-y-6">
-                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Required Skillsets</p>
+                       <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">Required Skillsets</p>
                        <div className="flex flex-wrap gap-2">
                           {task.requiredSkills.map(skill => (
-                             <span key={skill} className="px-3 py-1.5 bg-zinc-50 dark:bg-white/5 text-[9px] font-black uppercase tracking-widest text-zinc-500 dark:text-zinc-400 rounded-lg border border-zinc-200 dark:border-white/10">
+                             <span key={skill} className="px-3 py-1.5 bg-zinc-50 dark:bg-white/5 text-[9px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 rounded-lg border border-zinc-200 dark:border-white/10">
                                 {skill}
                              </span>
                           ))}
@@ -623,11 +623,11 @@ const TaskDetailsModal: React.FC<{task: Task, onClose: () => void}> = ({ task, o
 
                  <div className="space-y-10">
                     <div className="flex items-center justify-between">
-                       <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 flex items-center gap-3">
+                       <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 flex items-center gap-3">
                           <UserIcon size={14} className="text-zinc-300" />
                           Assigned Volunteers
                        </h4>
-                       <span className="text-[10px] font-black tracking-widest text-zinc-900 dark:text-white px-3 py-1 bg-zinc-100 dark:bg-white/10 rounded-full border border-zinc-200 dark:border-white/10">
+                       <span className="text-[10px] font-bold tracking-wider text-zinc-900 dark:text-white px-3 py-1 bg-zinc-100 dark:bg-white/10 rounded-full border border-zinc-200 dark:border-white/10">
                           {assignments.length} / {task.volunteersNeeded} Units
                        </span>
                     </div>
@@ -652,10 +652,10 @@ const TaskDetailsModal: React.FC<{task: Task, onClose: () => void}> = ({ task, o
                                       </div>
                                       <div>
                                          <p className="text-sm font-semibold text-zinc-900 dark:text-white leading-none mb-1">{volunteer.name}</p>
-                                         <p className="text-[9px] font-black uppercase tracking-widest text-emerald-500 flex items-center gap-1.5">
+                                         <div className="text-[9px] font-bold uppercase tracking-wider text-emerald-500 flex items-center gap-1.5">
                                             <div className="w-1 h-1 rounded-full bg-emerald-500" />
                                             {assignment.status}
-                                         </p>
+                                         </div>
                                       </div>
                                    </div>
                                    {isAdmin && (
@@ -674,13 +674,13 @@ const TaskDetailsModal: React.FC<{task: Task, onClose: () => void}> = ({ task, o
                     ) : (
                        <div className="py-12 text-center rounded-[2rem] border border-dashed border-zinc-200 dark:border-white/10">
                           <Users className="mx-auto text-zinc-300 dark:text-zinc-800 mb-3" size={32} />
-                          <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400 italic">Deployment List Empty</p>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 italic">Deployment List Empty</p>
                        </div>
                     )}
 
                     {isAdmin && task.status !== 'completed' && (
                        <div className="bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/5 dark:to-purple-500/5 p-8 rounded-[2rem] border border-indigo-500/20 dark:border-indigo-500/10 relative overflow-hidden">
-                          <h5 className="text-[10px] font-black uppercase tracking-[0.2em] mb-4 flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+                          <h5 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
                              <Sparkles size={12} className="text-indigo-400" />
                              AI Recommendation
                           </h5>
@@ -696,7 +696,7 @@ const TaskDetailsModal: React.FC<{task: Task, onClose: () => void}> = ({ task, o
            <div className="p-8 border-t border-zinc-100 dark:border-white/5 bg-zinc-50/50 dark:bg-white/[0.02] text-right">
               <button 
                 onClick={onClose}
-                className="px-8 py-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 hover:border-zinc-900 dark:hover:border-white text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white font-black text-[10px] uppercase tracking-widest rounded-xl transition-all active:scale-95"
+                className="px-8 py-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 hover:border-zinc-900 dark:hover:border-white text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all active:scale-95"
               >
                  Close Details
               </button>

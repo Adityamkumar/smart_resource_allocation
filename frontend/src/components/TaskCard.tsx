@@ -52,7 +52,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onViewDetails }) => {
             {currentStatus}
           </div>
           <div className={clsx(
-            "text-[10px] uppercase font-bold tracking-widest flex items-center gap-1",
+            "text-[10px] uppercase font-bold tracking-wider flex items-center gap-1",
             priorityColorMap[task.priority]
           )}>
             <div className="w-1.5 h-1.5 rounded-full bg-current" />
