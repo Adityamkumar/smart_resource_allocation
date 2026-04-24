@@ -11,6 +11,7 @@ import {
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Rating } from "../models/rating.model.js";
 import { HelpRequest } from "../models/helpRequest.model.js";
+import { Assignment } from "../models/assignment.model.js";
 
 export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, skills, location, address } = req.body;
@@ -293,4 +294,39 @@ export const deleteRating = asyncHandler(async (req, res) => {
   );
 
   return res.json(new ApiResponse(200, null, "Rating deleted and profile stats updated successfully"));
+});
+
+export const deleteUserAccount = asyncHandler(async (req, res) => {
+  const { password } = req.body;
+
+  if (!password) {
+    throw new ApiError(400, "Password is required for account deletion");
+  }
+
+  const user = await User.findById(req.user?._id);
+
+  if (!user) {
+    throw new ApiError(404, "User session not found");
+  }
+
+  const isPasswordValid = await user.isPasswordCorrect(password);
+
+  if (!isPasswordValid) {
+    throw new ApiError(401, "Authentication failed: Incorrect password provided");
+  }
+
+  // 1. Delete all assignments (Clean up field data)
+  await Assignment.deleteMany({ volunteer: user._id });
+
+  // 2. Delete user-specific reviews/ratings
+  await Rating.deleteMany({ volunteerId: user._id });
+
+  // 3. Delete the user profile
+  await user.deleteOne();
+
+  return res
+    .status(200)
+    .clearCookie("refreshToken", clearCookieOptions)
+    .clearCookie("accessToken", clearCookieOptions)
+    .json(new ApiResponse(200, {}, "Profile and all tactical data permanently purged"));
 });

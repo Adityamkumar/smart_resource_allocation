@@ -1,6 +1,6 @@
 import express from 'express'
 import { verifyJwt } from '../middleware/auth.middleware.js'
-import { loginUser, logoutUser, refreshAccessToken, registerUser, updateProfile, rateVolunteer, getAllVolunteers, getVolunteerReviews, deleteRating } from '../controllers/auth.controller.js'
+import { loginUser, logoutUser, refreshAccessToken, registerUser, updateProfile, rateVolunteer, getAllVolunteers, getVolunteerReviews, deleteRating, deleteUserAccount } from '../controllers/auth.controller.js'
 import { getDashboardStats } from '../controllers/dashboard.controller.js'
 import { authLimiter } from '../middleware/rateLimiter.middleware.js'
 import { authorizeRoles } from '../middleware/role.middleware.js'
@@ -16,4 +16,5 @@ router.get('/all-volunteers', verifyJwt, authorizeRoles('admin'), getAllVoluntee
 router.post('/rate-volunteer', rateVolunteer)
 router.get('/reviews/:volunteerId', getVolunteerReviews)
 router.delete("/reviews/:ratingId", verifyJwt, deleteRating);
+router.delete("/delete-profile", verifyJwt, deleteUserAccount);
 export default router
