@@ -12,7 +12,7 @@ import {
 const router = express.Router();
 
 router.post("/create", verifyJwt, authorizeRoles("admin"), createTask);
-router.get("/all", verifyJwt, authorizeRoles("admin"), getAllTasks);
+router.get("/all", verifyJwt, authorizeRoles("admin", "volunteer"), getAllTasks);
 router.get("/open", verifyJwt, authorizeRoles("volunteer", "admin"), getOpenTasks);
 router.get("/nearby", verifyJwt, authorizeRoles("volunteer", "admin"), getNearbyTasks);
 router.patch("/:taskId/status", verifyJwt, authorizeRoles("admin"), updateTaskStatus);
